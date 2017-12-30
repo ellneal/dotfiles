@@ -12,7 +12,6 @@ endif
 
 shellcheck:
 	docker run --rm -i $(DOCKER_FLAGS) \
-		--name df-shellcheck \
 		-v $(CURDIR):/opt/src:ro \
 		--workdir /opt/src \
 		r.j3ss.co/shellcheck ./test.sh

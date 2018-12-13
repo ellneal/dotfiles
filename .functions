@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function dockermachineup() {
+    docker-machine start default
+    eval "$(docker-machine env default)"
+}
+alias docker-up="dockermachineup"
+
+function hacker() {
+    hexdump -C /dev/urandom | grep "ca fe"
+}
+
+function processitcreport() {
+    if ! [[ -f "${1}" ]]; then
+        echo "No file found at ${1}"
+        echo "Usage: processitcreport /path/to/financial_report"
+        return 1
+    fi
+
+    docker run --rm -ti \
+        -v "${1}:/opt/input:ro" \
+        ellneal/itcfinancereport "/opt/input"
+}

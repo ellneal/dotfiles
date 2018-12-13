@@ -1,0 +1,206 @@
+#!/bin/bash
+DOCKER_TOOLS_PREFIX="ellneal"
+
+function aws() {
+    AWS="$HOME/.aws"
+
+    # allow project directory to override credentials
+    if [[ -f "$(pwd)/.aws" ]]; then
+        AWS="$(pwd)/.aws"
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        -v "$AWS:/root/.aws" \
+        -e PAGER="more" \
+        --workdir "/opt/src" \
+        "${DOCKER_TOOLS_PREFIX}/aws" "$@"
+}
+
+function cargo() {
+    local entrypoint="/usr/local/cargo/bin/cargo"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        -e USER \
+        -e CARGO_HOME="/opt/src/.cargo" \
+        "rust" "$@"
+}
+
+function fuck() {
+    docker run --rm -ti "${DOCKER_TOOLS_PREFIX}/thefuck" "$@" "$(fc -ln -1)"
+}
+
+function heroku() {
+    NETRC="$HOME/.netrc"
+
+    # allow project directory to override authentication
+    if [[ -f "$(pwd)/.netrc" ]]; then
+        NETRC="$(pwd)/.netrc"
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        -v "$NETRC:/root/.netrc" \
+        --workdir "/opt/src" \
+        "${DOCKER_TOOLS_PREFIX}/heroku" "$@"
+}
+
+function irb() {
+    ruby irb "$@"
+}
+
+function kops() {
+    local entrypoint="/usr/local/bin/kops"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "${DOCKER_TOOLS_PREFIX}/kops" "$@"
+}
+
+function kubectl() {
+    local entrypoint="/usr/bin/kubectl"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "${DOCKER_TOOLS_PREFIX}/kubectl" "$@"
+}
+
+function node() {
+    local entrypoint="/usr/local/bin/node"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    elif [ "${1}" == "npm" ]; then
+        entrypoint="/usr/local/bin/npm"; shift
+    fi
+
+    NPM="$HOME/.npm"
+    NPMRC="$HOME/.npmrc"
+
+    # allow project directory to override authentication
+    if [[ -f "$(pwd)/.npm" ]]; then
+        NPM="$(pwd)/.npm"
+    fi
+    if [[ -f "$(pwd)/.npmrc" ]]; then
+        NPMRC="$(pwd)/.npmrc"
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        -v "$NPM:/root/.npm" \
+        -v "$NPMRC:/root/.npmrc" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        --init \
+        "node" "$@"
+}
+
+function npm() {
+    node npm "$@"
+}
+
+function python() {
+    local entrypoint="/usr/local/bin/python"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "python" "$@"
+}
+
+function ruby() {
+    local entrypoint="/usr/local/bin/ruby"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    elif [ "${1}" == "irb" ]; then
+        entrypoint="/usr/local/bin/irb"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "ruby" "$@"
+}
+
+function swiftlint() {
+    local entrypoint="/usr/local/bin/swiftlint"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run \
+        --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "${DOCKER_TOOLS_PREFIX}/swiftlint" "$@"
+}
+
+function tldr() {
+    docker run --rm -ti "${DOCKER_TOOLS_PREFIX}/tldr" "$@"
+}
+
+function travis() {
+    local entrypoint="/usr/local/bundle/bin/travis"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+        # -e TRAVIS_CONFIG_PATH="/opt/src/.travis" \
+    fi
+
+    docker run \
+        --rm -ti \
+        -v "$(pwd):/opt/src:ro" \
+        -v "$HOME/.travis:/root/.travis" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "${DOCKER_TOOLS_PREFIX}/travis" "$@"
+}
+
+function tsc() {
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        "${DOCKER_TOOLS_PREFIX}/typescript" "$@"
+}
+
+function vapor() {
+    local entrypoint="/usr/local/bin/vapor"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "${DOCKER_TOOLS_PREFIX}/vapor" "$@"
+}

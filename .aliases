@@ -1,0 +1,10 @@
+#!/bin/bash
+
+alias g="git"
+
+for method in GET HEAD PUT DELETE TRACE OPTIONS; do
+    # shellcheck disable=SC2139,SC2140
+    alias "$method"="lwp-request -m \"$method\""
+done
+
+alias POST="lwp-request -m \"POST\" -c \"application/json\""

@@ -1,0 +1,8 @@
+#!/bin/bash
+blue=$(tput setaf 6);
+red=$(tput setaf 1);
+green=$(tput setaf 2);
+pink=$(tput setaf 5);
+reset=$(tput sgr0);
+
+export PS1='\n\[${blue}\]\W$(__git_ps1 " \[${red}\]git(\[${green}\]:%s\[${red}\])")\n\[${pink}\]→\[${reset}\] '

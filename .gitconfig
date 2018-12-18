@@ -16,7 +16,5 @@
 	excludesfile = ~/.gitignore
 [credential]
     helper = osxkeychain
-[merge]
-	tool = Kaleidoscope
 [push]
 	default = upstream

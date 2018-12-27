@@ -170,9 +170,8 @@ function tldr() {
 function travis() {
     local entrypoint="/usr/local/bundle/bin/travis"
 
-    if [ "${1}" == "bash" ]; then
-        entrypoint="/bin/bash"; shift
-        # -e TRAVIS_CONFIG_PATH="/opt/src/.travis" \
+    if [ "${1}" == "sh" ]; then
+        entrypoint="/bin/sh"; shift
     fi
 
     docker run \

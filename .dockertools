@@ -183,7 +183,7 @@ function travis() {
 
     docker run \
         --rm -ti \
-        -v "$(pwd):/opt/src:ro" \
+        -v "$(pwd):/opt/src" \
         -v "$HOME/.travis:/root/.travis" \
         --workdir "/opt/src" \
         --entrypoint "${entrypoint}" \

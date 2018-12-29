@@ -1,6 +1,13 @@
 #!/bin/bash
 DOCKER_TOOLS_PREFIX="ellneal"
 
+function acestream() {
+    docker run --rm -ti \
+        --init \
+        -p 6878:6878 \
+        "${DOCKER_TOOLS_PREFIX}/acestream" "$@"
+}
+
 function aws() {
     AWS="$HOME/.aws"
 

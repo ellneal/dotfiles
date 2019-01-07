@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# for file in $(find "/usr/local/etc/bash_completion.d"); do
 for file in /usr/local/etc/bash_completion.d/*; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
         # shellcheck source=/dev/null # https://github.com/koalaman/shellcheck/wiki/SC1090

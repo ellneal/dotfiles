@@ -1,12 +1,13 @@
 [alias]
         l = log --pretty=oneline -n 20 --graph --abbrev-commit
         s = status -s
-        a = add "$@"
-        c = commit -m "$@"
+        a = add
+        c = commit -m
         d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-    [user]
+[user]
 	name = Ell Neal
 	email = elliot@emdentec.com
+	signingkey = 0AAD6C98BA484C61
 [commit]
     gpgsign = true
 [color]

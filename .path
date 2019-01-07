@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# use homebrew's openssl
+export PATH="/usr/local/opt/openssl/bin:$PATH"

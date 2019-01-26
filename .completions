@@ -6,3 +6,6 @@ for file in /usr/local/etc/bash_completion.d/*; do
         source "$file"
     fi
 done
+
+# https://stackoverflow.com/a/38415982/1068870
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make

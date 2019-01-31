@@ -24,6 +24,16 @@ function aws() {
         "${DOCKER_TOOLS_PREFIX}/aws" "$@"
 }
 
+function bundle() {
+    local entrypoint="/usr/local/bin/bundle"
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "ruby" "$@"
+}
+
 function cargo() {
     local entrypoint="/usr/local/cargo/bin/cargo"
 

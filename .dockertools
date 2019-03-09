@@ -28,6 +28,7 @@ function bundle() {
     local entrypoint="/usr/local/bin/bundle"
 
     docker run --rm -ti \
+        -e "BUNDLE_PATH=/opt/src/.bundle" \
         -v "$(pwd):/opt/src" \
         --workdir "/opt/src" \
         --entrypoint "${entrypoint}" \

@@ -1,11 +1,4 @@
 #!/bin/bash
-
-function dockermachineup() {
-    docker-machine start default
-    eval "$(docker-machine env default)"
-}
-alias docker-up="dockermachineup"
-
 function hacker() {
     hexdump -C /dev/urandom | grep "ca fe"
 }

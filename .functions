@@ -1,4 +1,8 @@
 #!/bin/bash
+function containerize() {
+    docker run --rm -ti -v $(pwd):/opt/src --workdir /opt/src --entrypoint /bin/bash $@
+}
+
 function hacker() {
     hexdump -C /dev/urandom | grep "ca fe"
 }

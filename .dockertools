@@ -150,6 +150,20 @@ function python() {
         "python" "$@"
 }
 
+function python3() {
+    local entrypoint="/usr/local/bin/python"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        "python:3" "$@"
+}
+
 function ruby() {
     local entrypoint="/usr/local/bin/ruby"
 

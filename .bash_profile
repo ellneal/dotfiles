@@ -3,7 +3,7 @@
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{bash_prompt,aliases,functions,path,dockertools,extra,exports,path,completions}; do
+for file in ~/.{bash_prompt,aliases,functions,path,dockertools,extra,exports,path,completions,env}; do
     if [[ -r "$file" ]] && [[ -f "$file" ]]; then
         # shellcheck source=/dev/null # https://github.com/koalaman/shellcheck/wiki/SC1090
         source "$file"

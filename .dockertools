@@ -104,11 +104,14 @@ function kubectl() {
 
 function node() {
     local entrypoint="/usr/local/bin/node"
+    local ports="-P"
 
     if [ "${1}" == "bash" ]; then
         entrypoint="/bin/bash"; shift
     elif [ "${1}" == "npm" ]; then
         entrypoint="/usr/local/bin/npm"; shift
+    elif [ "${1}" == "-P" ]; then
+        shift; ports="-p ${1}:${1}"; shift
     fi
 
     NPM="$HOME/.npm"
@@ -126,6 +129,7 @@ function node() {
         -v "$(pwd):/opt/src" \
         -v "$NPM:/root/.npm" \
         -v "$NPMRC:/root/.npmrc" \
+        ${ports} \
         --workdir "/opt/src" \
         --entrypoint "${entrypoint}" \
         --init \

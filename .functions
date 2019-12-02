@@ -1,6 +1,6 @@
 #!/bin/bash
 function containerize() {
-    docker run --rm -ti -v $(pwd):/opt/src --workdir /opt/src --entrypoint /bin/bash $@
+    docker run --rm -ti -v "$(pwd):/opt/src" --workdir /opt/src --entrypoint /bin/bash "$@"
 }
 
 function hacker() {

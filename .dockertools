@@ -125,6 +125,7 @@ function node() {
         NPMRC="$(pwd)/.npmrc"
     fi
 
+    # shellcheck disable=SC2086
     docker run --rm -ti \
         -v "$(pwd):/opt/src" \
         -v "$NPM:/root/.npm" \

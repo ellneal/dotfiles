@@ -8,3 +8,5 @@ __git_complete g __git_main
 
 # https://stackoverflow.com/a/38415982/1068870
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+swift package completion-tool generate-bash-script > ~/.swift_completion.sh && . ~/.swift_completion.sh

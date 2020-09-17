@@ -55,6 +55,14 @@ function fuck() {
     docker run --rm -ti "${DOCKER_TOOLS_PREFIX}/thefuck" "$@" "$(fc -ln -1)"
 }
 
+function gh() {
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        -e "GITHUB_TOKEN"="$GITHUB_ACCESS_TOKEN" \
+        "${DOCKER_TOOLS_PREFIX}/github" "$@"
+}
+
 function heroku() {
     NETRC="$HOME/.netrc"
 

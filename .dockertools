@@ -51,6 +51,31 @@ function cargo() {
         "rust" "$@"
 }
 
+function claude() {
+    local entrypoint="/usr/local/bin/claude"
+
+    if [ "${1}" == "bash" ]; then
+        entrypoint="/bin/bash"; shift
+    fi
+
+    CLAUDE="$HOME/.claude"
+    CLAUDE_JSON="$HOME/.claude.json"
+
+    # allow project directory to override authentication
+    if [[ -f "$(pwd)/.claude" ]]; then
+        CLAUDE="$(pwd)/.claude"
+        CLAUDE_JSON="$(pwd)/.claude.json"
+    fi
+    docker run --rm -ti \
+        -v "$(pwd):/opt/src" \
+        --workdir "/opt/src" \
+        --entrypoint "${entrypoint}" \
+        -v "$CLAUDE:/root/.claude" \
+        -v "$CLAUDE_JSON:/root/.claude.json" \
+        "${DOCKER_TOOLS_PREFIX}/claude" \
+        "$@"
+}
+
 function fuck() {
     docker run --rm -ti "${DOCKER_TOOLS_PREFIX}/thefuck" "$@" "$(fc -ln -1)"
 }
